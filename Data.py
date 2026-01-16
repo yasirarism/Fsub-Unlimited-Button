@@ -49,7 +49,7 @@ class Data:
 
  • Creator: @{}
  • Framework: <a href='https://docs.pyrogram.org'>Pyrogram</a>
- • Source Code: -
+ • Hosted in: VPS
 
-👨‍💻 Developed with Love
+👨‍💻 Hosted with Love by YS Devs
 """
