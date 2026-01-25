@@ -2,18 +2,19 @@
 # FROM File-Sharing-Man <https://github.com/mrismanaziz/File-Sharing-Man/>
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from config import FORCE_SUB, BUTTONS_PER_ROW, BUTTONS_JOIN_TEXT
+from config import FORCE_SUB, BUTTONS_PER_ROW, BUTTONS_JOIN_TEXT, ENABLE_HELP
 from pyrogram.types import InlineKeyboardButton
 
 
 def start_button(client):
     if not FORCE_SUB:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
-                InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close"),
-            ],
-        ]
+        row = []
+        if ENABLE_HELP:
+            row.append(
+                InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help")
+            )
+        row.append(InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close"))
+        buttons = [row]
         return buttons
 
     dynamic_buttons = []
@@ -29,11 +30,12 @@ def start_button(client):
     if current_row:
         dynamic_buttons.append(current_row)
 
-    buttons = [
-        [
-            InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
-        ],
-    ] + dynamic_buttons + [
+    buttons = []
+    if ENABLE_HELP:
+        buttons.append(
+            [InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help")]
+        )
+    buttons += dynamic_buttons + [
         [InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close")],
     ]
     return buttons
