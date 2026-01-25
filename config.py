@@ -53,10 +53,7 @@ while True:
 BUTTONS_PER_ROW = int(os.environ.get("BUTTONS_PER_ROW", "3"))
 
 # Tulisan joinnya mau gimana
-BUTTONS_JOIN_TEXT = os.environ.get("BUTTONS_JOIN_TEXT", "ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ")
-
-# Tampilkan tombol & perintah help saat start
-ENABLE_HELP = strtobool(os.environ.get("ENABLE_HELP", "True"))
+BUTTONS_JOIN_TEXT = os.environ.get("BUTTONS_JOIN_TEXT", "ᴊᴏɪɴ")
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
@@ -73,7 +70,7 @@ except ValueError:
 # Pesan Saat Memaksa Subscribe
 FORCE_MSG = os.environ.get(
     "FORCE_SUB_MESSAGE",
-    "Hello {first}\n\nAnda harus bergabung di Channel/Grup saya terlebih dahulu untuk melihat file yang saya bagikan.\n\nSilahkan join Channel & Grup terlebih dahulu.",
+    "<b>Hello {first}\n\nAnda harus bergabung di Channel/Grup saya Terlebih dahulu untuk Melihat File yang saya Bagikan\n\nSilakan Join Ke Channel & Group Terlebih Dahulu</b>",
 )
 
 # Atur Teks Kustom Anda di sini, Simpan (None) untuk Menonaktifkan Teks Kustom
