@@ -3,7 +3,7 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 from bot import Bot
-from config import OWNER
+from config import OWNER, ENABLE_HELP
 from Data import Data
 from pyrogram import filters
 from pyrogram.errors import MessageNotModified
@@ -22,6 +22,8 @@ async def _about(client: Bot, msg: Message):
 
 @Bot.on_message(filters.private & filters.incoming & filters.command("help"))
 async def _help(client: Bot, msg: Message):
+    if not ENABLE_HELP:
+        return
     await client.send_message(
         msg.chat.id,
         "<b>Cara Menggunakan Bot ini</b>\n" + Data.HELP,
@@ -43,6 +45,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         except MessageNotModified:
             pass
     elif data == "help":
+        if not ENABLE_HELP:
+            return
         try:
             await query.message.edit_text(
                 text="<b>Cara Menggunakan Bot ini</b>\n" + Data.HELP,
