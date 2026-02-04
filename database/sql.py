@@ -33,6 +33,21 @@ class Broadcast(BASE):
 Broadcast.__table__.create(checkfirst=True)
 
 
+class BannedUser(BASE):
+    __tablename__ = "banned_users"
+    id = Column(Numeric, primary_key=True)
+    user_name = Column(TEXT)
+    reason = Column(TEXT)
+
+    def __init__(self, id, user_name, reason=None):
+        self.id = id
+        self.user_name = user_name
+        self.reason = reason
+
+
+BannedUser.__table__.create(checkfirst=True)
+
+
 #  Add user details -
 async def add_user(id, user_name):
     with INSERTION_LOCK:
@@ -58,5 +73,37 @@ async def full_userbase():
 async def query_msg():
     try:
         return SESSION.query(Broadcast.id).order_by(Broadcast.id)
+    finally:
+        SESSION.close()
+
+
+async def ban_user(id, user_name=None, reason=None):
+    with INSERTION_LOCK:
+        entry = SESSION.query(BannedUser).get(id)
+        if entry:
+            entry.user_name = user_name
+            entry.reason = reason
+        else:
+            entry = BannedUser(id, user_name, reason)
+            SESSION.add(entry)
+        SESSION.commit()
+
+
+async def unban_user(id):
+    with INSERTION_LOCK:
+        SESSION.query(BannedUser).filter(BannedUser.id == id).delete()
+        SESSION.commit()
+
+
+async def is_banned(id):
+    try:
+        return SESSION.query(BannedUser).get(id) is not None
+    finally:
+        SESSION.close()
+
+
+async def get_banned_user(id):
+    try:
+        return SESSION.query(BannedUser).get(id)
     finally:
         SESSION.close()

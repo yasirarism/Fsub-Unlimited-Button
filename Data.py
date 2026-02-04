@@ -21,7 +21,9 @@ class Data:
  ├ /users - Untuk melihat statistik pengguna bot
  ├ /batch - Untuk membuat link lebih dari satu file
  ├ /speedtest - Untuk Mengetes kecepatan server bot
- └ /broadcast - Untuk mengirim pesan broadcast ke pengguna bot
+ ├ /broadcast - Untuk mengirim pesan broadcast ke pengguna bot
+ ├ /ban - Untuk memblokir pengguna bot
+ └ /unban - Untuk membuka blokir pengguna bot
 """
 
     close = [
