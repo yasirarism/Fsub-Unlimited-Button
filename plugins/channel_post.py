@@ -38,6 +38,8 @@ from helper_func import encode
     )
 )
 async def channel_post(client: Client, message: Message):
+    if message.from_user and message.from_user.id in client.batch_sessions:
+        return
     reply_text = await message.reply_text("<code>Tunggu Sebentar...</code>", quote=True)
     try:
         post_message = await message.copy(

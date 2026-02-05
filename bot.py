@@ -30,6 +30,7 @@ class Bot(Client):
             bot_token=TG_BOT_TOKEN,
         )
         self.LOGGER = LOGGER
+        self.batch_sessions = set()
 
     async def start(self):
         try:
